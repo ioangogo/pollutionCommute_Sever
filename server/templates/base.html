@@ -1,44 +1,53 @@
 <!-- templates/base.html -->
 <!DOCTYPE html>
 <html>
+	<head>
+		<title>{%block title%}{% endblock %} - Commute Pollute</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+	</head>
+	<body>
 
-<head>
-	<meta charset = "utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Polluted Commute</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
-</head>
-<body>
-<section class="hero is-primary is-medium">
-	<div class="hero-head">
-		<nav class="navbar">
-			<div class="container">
-				<div class="navebar-brand">
-				<a class="navbar-item">
-					<h1 class="title">Poluted Commute</h1>
-				</a>
-<span class="navbar-burger burger" data-target="navbarMenuHeroA">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </div>
-				</div>
-				<div id="navbarMenuHeroA" class="navbar-menu">
-					<div class="navbar-end">
-						<a class="navbar-item is-active">
-							Home
-						</a>
-					</div>
-				</div>
-			</div>
-		</nav>
-	</div>
-	<div class="hero-body>
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="/">Commute Pollute</a></div>
+				
+				{% if current_user.is_authenticated %}
+					<span>Hi {{current_user.username}}</span>
+				{% endif %}
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="/">Home</a></li>
+					{% if not current_user.is_authenticated %}
+					<li><a href="{{url_for('auth.login')}}">Log In</a></li>
+					<li><a href="{{url_for('auth.signup')}}">Signup</a></li>
+					{% endif %}
+					{% if current_user.is_authenticated %}
+					<li><a href="{{url_for('auth.logout')}}">Log Out</a></li>
+					{% endif %}
+				</ul>
+			</nav>
 		{% block content %}
 		{% endblock %}
-	</div>
-</section>
-</body>
+		
+			<footer id="footer">
+				<div class="copyright">
+					<p>&copy; Pollute Commute. All rights reserved. Design: <a href="https://templated.co">TEMPLATED</a>.</p>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='assets/js/util.js')}}"></script>
+			<script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
+
+	</body>
 </html>
