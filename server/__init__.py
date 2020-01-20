@@ -1,20 +1,31 @@
 import os
-
+from pathlib import Path
 from flask import Flask
 from flask_login import LoginManager 
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.middleware.proxy_fix import ProxyFix
+from . import defultcfg
 
 db = SQLAlchemy()
 
-
 def create_app(test_config=None):
+    instancePath = os.path.join(str(Path.home()), ".commutePollution/")
+    if not os.path.exists(instancePath):
+        os.mkdir(instancePath)
+
+    app = Flask(__name__, instance_path=instancePath)
+    app.wsgi_app = ProxyFix(app.wsgi_app)
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI="sqlite:///"+os.path.join(app.instance_path, 'server.sqlite'),
+        SQLALCHEMY_DATABASE_URI="sqlite:///"+os.path.join(os.path.realpath(app.instance_path), 'server.sqlite'),
+        SECRET_KEY = 'totallyInsecure',
+        DEBUG = True
     )
+    app.config.from_object('.defultcfg.Config')
     print(app.config['SQLALCHEMY_DATABASE_URI'])
+    
+    
+
     db.init_app(app)
 
     login_manager = LoginManager()

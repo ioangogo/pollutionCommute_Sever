@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title%}Sensors{% endblock %}
+
+{% block content %}
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Section -->
+					<section class="wrapper style1">
+						<div class="inner">
+                            <header class="align-center">
+                                <h1>{{current_user.username}}'s sensors</h1>
+                            </header>
+                            <div class="flex flex-2">
+                                <div class="col col2">
+                                    <div class="table-wrapper">
+                                        {{sensor_table}}
+                                    </div>
+                                    <p>
+                                        <a href="{{ url_for('views.sensorsOnboard') }}" class="button">Add New Sensor</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+            </div>
+
+<script>
+{% endblock %}

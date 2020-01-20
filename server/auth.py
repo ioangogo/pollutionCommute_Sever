@@ -17,11 +17,14 @@ def login():
         password = request.form.get("password")
         user = User.query.filter_by(username=Username).first()
         print(user)
-        if not user and check_password_hash(user.password, password):
-            return redirect(url_for('auth.login'))
+        if user is not None:
+            if not user and check_password_hash(user.password, password):
+                return redirect(url_for('auth.login'))
+            else:
+                login_user(user)
+                return redirect(url_for('views.sensors'))
         else:
-            login_user(user)
-            return redirect(url_for('views.sensors'))
+            return redirect(url_for('auth.login'))
 
 
 @auth.route('/signup', methods=['GET', 'POST'])

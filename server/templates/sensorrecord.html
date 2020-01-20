@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title%}Sensors{% endblock %}
+
+{% block content %}
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Section -->
+					<section class="wrapper style1">
+						<div class="inner">
+                            <header class="align-center">
+                                <h1>{{sensor_id}}'s Recordings for the past 5 days</h1>
+                            </header>
+                            <div class="flex flex-2">
+                                <div class="col col2">
+                                    <div class="table-wrapper">
+                                        {{sensor_table}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+            </div>
+{% endblock %}

@@ -12,14 +12,15 @@ devicetemplate = {
   "latitude": 0,
   "longitude": 0,
   "altitude": 0,
-  "disableFCntCheck": True,
+  "disableFCntCheck": False,
   "uses32BitFCnt": True,
 }
 
+# Generates a new device object to be sent to the things network to register
 def genNewDevice(username, id):
     device = devicetemplate.copy()
-    devicetemplate["description"] = "{}poldevice{}".format(username.lower, id)
-    devicetemplate["appEui"] = TTN_APPEUI
-    devicetemplate["devEui"] = binascii.b2a_hex(os.urandom(8)).upper()
-    devicetemplate["appkey"] = binascii.b2a_hex(os.urandom(16)).upper()
+    device["description"] = "{}poldevice{}".format(username.lower(), id)
+    device["appEui"] = TTN_APPEUI
+    device["devEui"] = binascii.b2a_hex(os.urandom(8)).upper()
+    device["appKey"] = binascii.b2a_hex(os.urandom(16)).upper()
     return device

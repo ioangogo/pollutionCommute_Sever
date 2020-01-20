@@ -28,6 +28,7 @@
 					<li><a href="{{url_for('auth.signup')}}">Signup</a></li>
 					{% endif %}
 					{% if current_user.is_authenticated %}
+					<li><a href="{{url_for('views.sensors')}}">Sensors</a></li>
 					<li><a href="{{url_for('auth.logout')}}">Log Out</a></li>
 					{% endif %}
 				</ul>

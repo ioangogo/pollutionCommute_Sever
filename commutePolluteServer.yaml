@@ -1,0 +1,14 @@
+[Unit]
+Description=uWSGI instance to serve commute Pollute
+After=network.target
+
+[Service]
+User=iloosley
+Group=www-data
+WorkingDirectory=REPLACE_ME
+Environment="PATH=REPLACE_ME"
+Environment="APP_SETTINGS=REPLACE_ME"
+ExecStart=/home/sammy/myproject/myprojectenv/bin/uwsgi --ini myproject.ini --plugin python
+
+[Install]
+WantedBy=multi-user.target
