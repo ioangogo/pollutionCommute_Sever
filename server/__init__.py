@@ -19,7 +19,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SQLALCHEMY_DATABASE_URI="sqlite:///"+os.path.join(os.path.realpath(app.instance_path), 'server.sqlite'),
         SECRET_KEY = 'totallyInsecure',
-        DEBUG = True
+        ENV = 'development'
     )
     app.config.from_object('.defultcfg.Config')
     print(app.config['SQLALCHEMY_DATABASE_URI'])
