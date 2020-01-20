@@ -21,7 +21,6 @@ def create_app(test_config=None):
         SECRET_KEY = 'totallyInsecure',
         ENV = 'development'
     )
-    app.config.from_object('.defultcfg.Config')
     print(app.config['SQLALCHEMY_DATABASE_URI'])
     
     
