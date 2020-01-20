@@ -1,0 +1,4 @@
+DEBUG = False
+SECRET_KEY = b'REPLACEME'
+DEVELOPMENT = False
+ENV = 'production'
