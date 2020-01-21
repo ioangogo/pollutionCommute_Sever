@@ -13,15 +13,20 @@ bp = Blueprint('ingest', __name__, url_prefix='/ingest')
 def ttnIn():
     if request.method == 'POST':
         data = request.json
-        deviceID = data['hardware_serial']
-        date = datetime.datetime.fromisoformat(data['metadata']['gateways'][0]['time'])
-        lat = data['payload_fields']['lat']
-        lng = data['payload_fields']['lng']
-        pm25 = data['payload_fields']['pm25']
-        newRecord = Recording(lat=lat, lng=lng, date_time=date, sensor=deviceID, pm25=pm25)
-        db.session.add(newRecord)
-        print(data)
-        return data
+        deviceEUI = data['hardware_serial']
+        sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
+        if sensor is not None:
+            deviceID = sensor.id
+            date = datetime.datetime.fromisoformat(data['metadata']['gateways'][0]['time'])
+            lat = data['payload_fields']['lat']
+            lng = data['payload_fields']['lng']
+            pm25 = data['payload_fields']['pm25']
+            newRecord = Recording(lat=lat, lng=lng, date_time=date, sensor=deviceID, pm25=pm25)
+            db.session.add(newRecord)
+            print(data)
+            return data
+        else:
+            return "Invalid Device"
     if request.method == 'GET':
         return "This Endpoint Is not for Human Use"
 
