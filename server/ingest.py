@@ -9,15 +9,8 @@ bp = Blueprint('ingest', __name__, url_prefix='/ingest')
 # Decription: this route handles incoming data from the things network
 #
 #
-@bp.route('/ttnIn', methods=['POST'])
+@bp.route('/ttnIn', methods=['POST', 'GET'])
 def ttnIn():
-    if request.method == 'POST':
-        data = request.json
-        print(data)
-        return data
-
-@bp.route('/sensorIn', methods=['POST'])
-def sensorIn():
     if request.method == 'POST':
         data = request.json
         deviceID = data['hardware_serial']
@@ -29,3 +22,9 @@ def sensorIn():
         db.session.add(newRecord)
         print(data)
         return data
+    if request.method == 'GET':
+        return "This Endpoint Is not for Human Use"
+
+@bp.route('/sensorIn', methods=['POST'])
+def sensorIn():
+    
