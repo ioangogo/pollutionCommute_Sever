@@ -21,7 +21,7 @@ class sensorRecordTable(Table):
 class sensorTable(Table):
     name = Col("Sensor ID")
     sensorEUI = Col("Sensor EUI")
-    veiw_records_col = LinkCol("View Data", 'views.sensorRecords',url_kwargs=dict(sensorEUI = "sensor_id"))
+    veiw_records_col = LinkCol("View Data", 'views.sensorRecords',url_kwargs=dict(sensor_id = "sensorEUI"))
     deleteSensorCol = ButtonCol("Delete Sensor", 'views.deleteSensor',url_kwargs=dict(name = "name"))
 
 @bp.route('/map')
