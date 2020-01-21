@@ -25,6 +25,7 @@ def ttnIn():
     if request.method == 'GET':
         return "This Endpoint Is not for Human Use"
 
-@bp.route('/sensorIn', methods=['POST'])
+@bp.route('/sensorIn', methods=['POST', 'GET'])
 def sensorIn():
-    
+    if request.method == 'GET':
+        return "This Endpoint Is not for Human Use"
