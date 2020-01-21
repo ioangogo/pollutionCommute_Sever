@@ -46,7 +46,7 @@ def sensorRecords(sensor_id):
     if current_user.id == sensor.owner:
         recordings=Recording.query.filter_by(sensor=sensor.id)
         table = sensorRecordTable(recordings)
-        return render_template("sensors.html", sensor_table=table, sensor_id=sensor_id)
+        return render_template("sensorrecord.html", sensor_table=table, sensor_id=sensor_id)
     else:
         return redirect(url_for('views.sensors'))
 
