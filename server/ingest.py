@@ -24,6 +24,7 @@ def ttnIn():
             pm25 = data['payload_fields']['pm25']
             newRecord = Recording(lat=lat, lng=lng, date_time=date, sensor=deviceID, pm25=pm25)
             db.session.add(newRecord)
+            db.session.commit()
             print(data)
             return data
         else:
