@@ -28,6 +28,7 @@ function setPos(pos){
 
 var Markers = new Array;
 navigator.geolocation.getCurrentPosition(setPos);
+console.log(startpost)
 var map = L.map('map').setView(startpost, 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
