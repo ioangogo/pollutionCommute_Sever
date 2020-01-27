@@ -8,6 +8,7 @@ bp = Blueprint('api', __name__, url_prefix='/api')
 @bp.route('/GetSensorInBounds', methods=['POST'])
 def apiGetSensorInBounds():
     requestData = request.json
+    print(request.json)
     topLat = requestData['top']['lat']
     topLng = requestData['top']['lng']
     bottomLat= requestData['bottom']['lat']
