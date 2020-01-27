@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title%}Map{% endblock %}
+{% block head_stuff%}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+{% endblock %}
+
+{% block content %}
+<div id="main">
+
+    <!-- Section -->
+        <section class="wrapper style1">
+            <div class="inner">
+                <div id="mapid" style="width: 100%; height: 400px;"></div>
+            </div>
+        </section>
+</div>
+<script>
+navigator.geolocation.getCurrentPosition(setPos);
+var Markers = new Array;
+var map = L.map('mapid');
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+map.on('viewreset', function(ev) {
+    map.removeLayer(Markers); // ev is an event object (MouseEvent in this case)
+});
+map.on('zoomend', updateSensors);
+map.on('moveend', updateSensors);
+
+function setPos(pos){
+    position = [pos.coords.latitude, pos.coords.longitude];
+    map.setView(position, 13);
+}
+
+function updateSensors(ev){
+    map.removeLayer(Markers);
+    Markers = new Array;
+    var bounds = map.getBounds()
+    var request = {"top": { "lat": bounds._northEast.lat, "lng": bounds._northEast.lng }, "bottom": { "lat": bounds._southWest.lat, "lng": bounds._southWest.lng } }
+    fetch('/api/GetSensorInBounds', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(request)
+    }).then((myJson) => {
+        for (const record of myJson){
+            var LamMarker = new L.marker([record.lat, record.lng]);
+            LamMarker.bindPopup("<b>PM2.5</b>"+record.pm25);
+
+            Markers.push(LamMarker);
+        }
+        map.addLayer(Markers);
+    });
+}
+
+</script>
+{% endblock %}
+{% block footer_scripts %}
+{% endblock %}

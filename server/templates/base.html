@@ -3,6 +3,8 @@
 <html>
 	<head>
 		<title>{%block title%}{% endblock %} - Commute Pollute</title>
+		{%block head_stuff%}
+		{% endblock %}
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
@@ -49,6 +51,8 @@
 			<script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
 			<script src="{{ url_for('static', filename='assets/js/util.js')}}"></script>
 			<script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
+			{%block footer_scripts%}
+			{%endblock%}
 
 	</body>
 </html>
