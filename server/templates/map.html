@@ -58,7 +58,7 @@ function updateSensors(ev){
             LamMarker.bindPopup("<b>PM2.5</b>"+record.pm25);
             
             Markers.push(LamMarker);
-            map.addLayer(Markers[markeri]);
+            map.addLayer(LamMarker);
             markeri+=1;
         }
     });
