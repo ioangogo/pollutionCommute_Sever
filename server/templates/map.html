@@ -52,7 +52,7 @@ function updateSensors(ev){
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(request)
-    }).then((myJson) => {
+    }).then(response => response.json()).then((myJson) => {
         console.log(myJson)
         for (const record of myJson){
             var LamMarker = new L.marker([record.lat, record.lng]);
