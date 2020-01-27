@@ -8,12 +8,12 @@ bp = Blueprint('api', __name__, url_prefix='/api')
 @bp.route('/GetSensorInBounds', methods=['POST'])
 def apiGetSensorInBounds():
     requestData = request.json
+    result=[]
     print(request)
     topLat = requestData['top']['lat']
     topLng = requestData['top']['lng']
     bottomLat= requestData['bottom']['lat']
     bottomLng = requestData['bottom']['lng']
-    result=[]
     recordings = Recording.query.filter(bottomLat <= Recording.lat <= topLat, bottomLng <= Recording.lng <= topLng)
     for recording in recordings:
         data = {

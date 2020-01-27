@@ -47,6 +47,9 @@ def create_app(test_config=None):
     from . import ingest
     app.register_blueprint(ingest.bp)
 
+    from . import api
+    app.register_blueprint(api.bp)
+
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
