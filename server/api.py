@@ -14,7 +14,7 @@ def apiGetSensorInBounds():
     topLng = requestData['top']['lng']
     bottomLat= requestData['bottom']['lat']
     bottomLng = requestData['bottom']['lng']
-    recordings = Recording.query.filter(bottomLat <= Recording.lat <= topLat, bottomLng <= Recording.lng <= topLng)
+    recordings = Recording.query.filter(Recording.lat.between(bottomLat, topLat), Recording.lng.between(bottomLng, topLng))
     for recording in recordings:
         data = {
             "lat":recording.lat,
