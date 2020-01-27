@@ -1,6 +1,7 @@
 from flask import request, Blueprint
 from . import db
 from .models import Recording
+import json
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -12,4 +13,4 @@ def apiGetSensorInBounds():
     bottomLat= requestData['bottom']['lat']
     bottomLng = requestData['bottom']['lng']
     recordingsInArea = Recording.query.filter(bottomLat <= Recording.lat <= topLat, bottomLng <= Recording.lng <= topLng)
-    return recordingsInArea
+    return json.dumps(recordingsInArea.__dict__)
