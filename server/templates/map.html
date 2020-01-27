@@ -53,6 +53,7 @@ function updateSensors(ev){
         },
         body: JSON.stringify(request)
     }).then((myJson) => {
+        console.log(myJson)
         for (const record of myJson){
             var LamMarker = new L.marker([record.lat, record.lng]);
             LamMarker.bindPopup("<b>PM2.5</b>"+record.pm25);
