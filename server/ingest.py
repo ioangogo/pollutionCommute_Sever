@@ -18,7 +18,7 @@ def ttnIn():
         sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
         if sensor is not None:
             deviceID = sensor.id
-            date = dateutil.parser.isoparse(data['metadata']['gateways'][0]['time'])
+            date = dateutil.parser.isoparse(data['metadata']['time'])
             lat = data['payload_fields']['lat']
             lng = data['payload_fields']['lng']
             pm25 = data['payload_fields']['pm25']
