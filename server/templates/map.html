@@ -45,7 +45,7 @@ function updateSensors(ev){
     map.removeLayer(Markers);
     Markers = new Array;
     var bounds = map.getBounds()
-    var request = {"top": { "lat": bounds._northEast.lat, "lng": bounds._northEast.lng }, "bottom": { "lat": bounds._southWest.lat, "lng": bounds._southWest.lng } }
+    var request = {"bottom": { "lat": bounds._northEast.lat, "lng": bounds._northEast.lng }, "top": { "lat": bounds._southWest.lat, "lng": bounds._southWest.lng } }
     fetch('/api/GetSensorInBounds', {
         method: 'POST',
         headers: {
