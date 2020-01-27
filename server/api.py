@@ -4,7 +4,7 @@ from .models import Recording
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
-@bp.route('/apiGetSensorInBounds', methods=['POST'])
+@bp.route('/GetSensorInBounds', methods=['POST'])
 def apiGetSensorInBounds():
     requestData = request.json
     topLat = requestData['mapBound'][0][0]
@@ -12,3 +12,4 @@ def apiGetSensorInBounds():
     bottomLat= requestData['mapBound'][1][0]
     bottomLng = requestData['mapBound'][1][1]
     recordingsInArea = Recording.query.filter(bottomLat <= Recording.lat <= topLat, bottomLng <= Recording.lng <= topLng)
+    return recordingsInArea
