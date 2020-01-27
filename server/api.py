@@ -20,6 +20,8 @@ def apiGetSensorInBounds():
             "lat":recording.lat,
             "lng":recording.lng,
             "pm25": recording.pm25,
-            "datetime": recording.date_time}
+            "datetime": recording.date_time
+            }
         result.append(data)
+    print(result)
     return json.dumps(result)
