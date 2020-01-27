@@ -15,17 +15,19 @@ crossorigin=""/>
     <!-- Section -->
         <section class="wrapper style1">
             <div class="inner">
-                <div id="mapid" style="width: 100%; height: 400px;"></div>
+                <div id="map" style="width: 100%; height: 400px;"></div>
             </div>
         </section>
 </div>
 <script>
-navigator.geolocation.getCurrentPosition(setPos);
 var Markers = new Array;
-var map = L.map('mapid');
+var map = L.map('map');
+navigator.geolocation.getCurrentPosition(setPos);
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+
 map.on('viewreset', function(ev) {
     map.removeLayer(Markers); // ev is an event object (MouseEvent in this case)
 });
