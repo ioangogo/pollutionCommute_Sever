@@ -26,7 +26,7 @@ class sensorTable(Table):
 
 @bp.route('/map')
 def map():
-    return 'map'
+    return render_template("map.html")
 
 @bp.route('/')
 def index():
