@@ -43,7 +43,7 @@ map.on('moveend', updateSensors);
 
 function updateSensors(ev){
     for(const marker in Markers){
-        map.removeLayer(Markers);
+        map.removeLayer(marker);
     }
     Markers = new Array;
     var bounds = map.getBounds();
