@@ -36,3 +36,9 @@ def ttnIn():
 def sensorIn():
     if request.method == 'GET':
         return "This Endpoint Is not for Human Use"
+    elif request.method == 'POST':
+        data = request.json
+        deviceEUI = data['hardware_serial']
+        sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
+        #for reading in data['readings']:
+            
