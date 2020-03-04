@@ -53,9 +53,8 @@ function updateSensors(ev){
         console.log(myJson)
         for (const record of myJson){
             var LamMarker = new L.marker([record.lat, record.lng]);
-            var d = new Date(record.datetime);
-            var dStr = Intl.DateTimeFormat('default', options).format(date)
-            LamMarker.bindPopup("<b style='text-align: center;'>"+dStr+"</b><br><b>PM2.5</b>"+record.pm25);
+            
+            LamMarker.bindPopup("<b style='text-align: center;'>"+record.datetime+"</b><br><b>PM2.5</b>"+record.pm25);
             
             Markers.push(LamMarker);
             map.addLayer(LamMarker);
