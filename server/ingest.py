@@ -18,13 +18,13 @@ def ttnIn():
         nonce = data['payload_fields']['nonce']
         sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
         nonceCheck = Recording.query.filter_by(sensor=sensor, nonce=nonce, Recording.date_time.after(datetime.datetime.now - datetime.timedelta(days=1)))
-        if sensor is not None:
+        if sensor is not None and len(nonceCheck) is 0:
             deviceID = sensor.id
             date = dateutil.parser.isoparse(data['metadata']['time'])
             lat = data['payload_fields']['lat']
             lng = data['payload_fields']['lng']
             pm25 = data['payload_fields']['pm25']
-            newRecord = Recording(lat=lat, lng=lng, date_time=date, sensor=deviceID, pm25=pm25)
+            newRecord = Recording(lat=lat, lng=lng, date_time=date, sensor=deviceEUI, pm25=pm25, nonce=nonce)
             db.session.add(newRecord)
             db.session.commit()
             print(data)
