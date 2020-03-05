@@ -21,3 +21,4 @@ class Recording(db.Model):
     dB = db.Column(db.Float, default=0.0)
     date_time = db.Column(db.DateTime)
     sensor = db.Column(db.Integer, db.ForeignKey('sensor.id'))
+    nonce = db.Column(db.Integer)
