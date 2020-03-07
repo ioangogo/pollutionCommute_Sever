@@ -12,11 +12,11 @@ bp = Blueprint('ingest', __name__, url_prefix='/ingest')
 #
 
 
-def packetCheck(json, deviceEUI):
+def packetCheck(data, deviceEUI):
     nonceValid = False
     sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
-    if "nonce" in data['payload_fields'].keys():
-        nonce = data['payload_fields']['nonce']
+    if "nonce" in data.keys():
+        nonce = data['nonce']
         # I dont entirely have confidence in the ESP32's random number genrator so i only check if the nonce has been used in the past day
         nonceCheck = Recording.query.filter_by(Recording.date_time.after(datetime.datetime.now - datetime.timedelta(days=1)), sensor=sensor, nonce=nonce)
         if len(nonceCheck) == 0:
@@ -35,10 +35,10 @@ def packetCheck(json, deviceEUI):
 @bp.route('/ttnIn', methods=['POST', 'GET'])
 def ttnIn():
     if request.method == 'POST':
-        print(data)
         data = request.json
+        print(data)
         deviceEUI = data['hardware_serial']
-        sensor, packetValid = packetCheck(data, deviceEUI)
+        sensor, packetValid = packetCheck(data['payload_fields'], deviceEUI)
         if packetValid:
             deviceID = sensor.id
             date = dateutil.parser.isoparse(data['metadata']['time'])
@@ -62,10 +62,11 @@ def sensorIn():
         return "This Endpoint Is not for Human Use"
     elif request.method == 'POST':
         data = request.json
+        print(data)
         deviceEUI = data['sensor']
         sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
         timestamp = datetime.datetime.utcfromtimestamp(int(data['time']))
-        sensor, packetValid = packetCheck(data, deviceEUI)
+        sensor, packetValid = packetCheck(data['data'], deviceEUI)
         if packetValid:
             nonce = data['data']['nonce']
             lat = data['data']['lat']
