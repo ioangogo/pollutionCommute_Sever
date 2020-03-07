@@ -18,7 +18,7 @@ def packetCheck(data, deviceEUI):
     if "nonce" in data.keys():
         nonce = data['nonce']
         # I dont entirely have confidence in the ESP32's random number genrator so i only check if the nonce has been used in the past day
-        nonceCheck = Recording.query.filter_by(Recording.date_time.after(datetime.datetime.now - datetime.timedelta(days=1)), sensor=sensor, nonce=nonce)
+        nonceCheck = Recording.query.filter_by(Recording.date_time.between(datetime.datetime.now - datetime.timedelta(days=1), datetime.datetime.now), sensor=sensor, nonce=nonce)
         if len(nonceCheck) == 0:
             nonceValid = True
         elif nonceCheck.first() == "":
