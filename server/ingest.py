@@ -80,7 +80,7 @@ def sensorIn():
             lat = data['data']['lat']
             lng = data['data']['lng']
             pm25 = data['data']['pm25']
-            newRecord = Recording(lat=lat, lng=lng, date_time=timestamp, sensor=deviceEUI, pm25=pm25, nonce=nonce)
+            newRecord = Recording(lat=lat, lng=lng, date_time=timestamp, sensor=sensor, pm25=pm25, nonce=nonce)
             db.session.add(newRecord)
             db.session.commit()
             print(data)
