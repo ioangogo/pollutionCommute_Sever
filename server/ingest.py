@@ -34,6 +34,7 @@ def packetCheck(data, deviceEUI):
         print(nonceCheck.first())
         return (sensor, True)
     else:
+        print(nonceCheck.first())
         return (sensor, False)
 
 
