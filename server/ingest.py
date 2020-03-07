@@ -10,20 +10,40 @@ bp = Blueprint('ingest', __name__, url_prefix='/ingest')
 # Decription: this route handles incoming data from the things network
 #
 #
+
+
+def packetCheck(json, deviceEUI):
+    nonceValid = False
+    sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
+    if "nonce" in data['payload_fields'].keys():
+        nonce = data['payload_fields']['nonce']
+        nonceCheck = Recording.query.filter_by(sensor=sensor, nonce=nonce, Recording.date_time.after(datetime.datetime.now - datetime.timedelta(days=1)))
+        if len(nonceCheck) == 0:
+            nonceValid = True
+        elif nonceCheck.first() is "":
+            nonceValid = True
+    else:
+        nonceValid = True
+    
+    if sensor is not None and nonceValid:
+        return (sensor, True)
+    else:
+        return (sensor, False)
+
+
 @bp.route('/ttnIn', methods=['POST', 'GET'])
 def ttnIn():
     if request.method == 'POST':
         data = request.json
         deviceEUI = data['hardware_serial']
-        nonce = data['payload_fields']['nonce']
-        sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
-        nonceCheck = Recording.query.filter_by(sensor=sensor, nonce=nonce, Recording.date_time.after(datetime.datetime.now - datetime.timedelta(days=1)))
-        if sensor is not None and len(nonceCheck) is 0:
+        sensor, packetValid = packetCheck(data, deviceEUI)
+        if packetValid:
             deviceID = sensor.id
             date = dateutil.parser.isoparse(data['metadata']['time'])
             lat = data['payload_fields']['lat']
             lng = data['payload_fields']['lng']
             pm25 = data['payload_fields']['pm25']
+            nonce = data['payload_fields']['nonce']
             newRecord = Recording(lat=lat, lng=lng, date_time=date, sensor=deviceEUI, pm25=pm25, nonce=nonce)
             db.session.add(newRecord)
             db.session.commit()
@@ -43,9 +63,9 @@ def sensorIn():
         deviceEUI = data['sensor']
         sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
         timestamp = datetime.utcfromtimestamp(int(data['time']))
-        nonce = data['data']['nonce']
-        nonceCheck = Recording.query.filter_by(sensor=sensor, nonce=nonce, Recording.date_time.after(datetime.datetime.now - datetime.timedelta(days=1)))
-        if(len(nonceCheck) is 0):
+        sensor, packetValid = packetCheck(data, deviceEUI)
+        if packetValid:
+            nonce = data['data']['nonce']
             lat = data['data']['lat']
             lng = data['data']['lng']
             pm25 = data['dara']['pm25']
