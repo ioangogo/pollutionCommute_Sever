@@ -35,6 +35,7 @@ def packetCheck(json, deviceEUI):
 @bp.route('/ttnIn', methods=['POST', 'GET'])
 def ttnIn():
     if request.method == 'POST':
+        print(data)
         data = request.json
         deviceEUI = data['hardware_serial']
         sensor, packetValid = packetCheck(data, deviceEUI)
