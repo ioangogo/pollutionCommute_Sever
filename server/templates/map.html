@@ -33,8 +33,15 @@ function setPos(pos){
 
 var ctx = document.getElementById('DataChart');
 var lineChart=new Chart(ctx, {type: 'line',
-    data: {labels:["pm2.5 pollution"], datasets:[{label: "Sensors In View", data:[]}]}
-     });
+    data: {labels:["pm2.5 pollution"], datasets:[{label: "Sensors In View", data:[]}]},
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'time',
+                distribution: 'series'
+            }]
+            }
+        }});
 
 function addData(chart, label, data) {
     chart.data.labels.push(label);
