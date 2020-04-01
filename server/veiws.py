@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
 from flask_table import Table, Col, ButtonCol, LinkCol
-from datetime import datetime
+from datetime import datetime, timedelta
 import binascii
 import ttn
 from .util.ttndevice import genNewDevice
@@ -45,7 +45,7 @@ def sensors():
 def sensorRecords(sensor_id):
     sensor = Sensor.query.filter_by(sensorEUI=sensor_id).first()
     if current_user.id == sensor.owner:
-        recordings=Recording.query.filter(Recording.date_time.between(datetime.now() - datetime.timedelta(days=7)), Recording.sensor == sensor.id)
+        recordings=Recording.query.filter(Recording.date_time.between(datetime.now() - timedelta(days=7)), Recording.sensor == sensor.id)
         table = sensorRecordTable(recordings)
         return render_template("sensorrecord.html", sensor_table=table, sensor_id=sensor_id)
     else:
