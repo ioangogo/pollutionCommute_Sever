@@ -78,11 +78,11 @@ function updateSensors(ev){
         body: JSON.stringify(request)
     }).then(response => response.json()).then((myJson) => {
         console.log(myJson)
-        var data = new Array;
+        var Newdata = new Array;
         for (const record of myJson){
             var LamMarker = new L.marker([record.lat, record.lng]);
             var GraphData = {x: new Date(record.datetime), y: record.pm25}
-            data.push(GraphData)
+            Newdata.push(GraphData)
             
             LamMarker.bindPopup("<b style='text-align: center;'>"+record.datetime+"</b><br><b>PM2.5</b>"+record.pm25);
             
@@ -92,7 +92,7 @@ function updateSensors(ev){
         }
         var ctx = document.getElementById('DataChart');
         var lineChart=new Chart(ctx, {type: 'line',
-        data: {labels:["pm2.5 pollution"], datasets:[{label: "Sensors In View", data: data}]},
+        data: {labels:["pm2.5 pollution"], datasets:[{label: "Sensors In View", data: Newdata}]},
         });
     });
 }
