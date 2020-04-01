@@ -77,7 +77,7 @@ function updateSensors(ev){
         var data = new Array;
         for (const record of myJson){
             var LamMarker = new L.marker([record.lat, record.lng]);
-            var GraphData = {x: record.datetime, y: record.pm25}
+            var GraphData = {x: new Date(record.datetime), y: record.pm25}
             data.push(GraphData)
             
             LamMarker.bindPopup("<b style='text-align: center;'>"+record.datetime+"</b><br><b>PM2.5</b>"+record.pm25);
