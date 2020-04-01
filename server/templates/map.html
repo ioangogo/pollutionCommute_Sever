@@ -15,7 +15,8 @@ crossorigin=""/>
     <!-- Section -->
         <section class="wrapper style1">
             <div class="inner">
-                <div id="map" style="width: 100%; height: 400px;"></div>
+                <div id="map" style="width: 100%; height: 400px;"></div><br>
+                <canvas id="DataChart" width="100%" height="400"></canvas>
             </div>
         </section>
 </div>
@@ -34,6 +35,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 map.on('zoomend', updateSensors);
 map.on('moveend', updateSensors);
+var ctx = document.getElementById('DataChart');
 
 
 
@@ -51,8 +53,11 @@ function updateSensors(ev){
         body: JSON.stringify(request)
     }).then(response => response.json()).then((myJson) => {
         console.log(myJson)
+        var data = [];
         for (const record of myJson){
             var LamMarker = new L.marker([record.lat, record.lng]);
+            var GraphData = {x: record.datetime, y: record.pm25}
+            data.push(GraphData)
             
             LamMarker.bindPopup("<b style='text-align: center;'>"+record.datetime+"</b><br><b>PM2.5</b>"+record.pm25);
             
@@ -60,6 +65,11 @@ function updateSensors(ev){
             map.addLayer(LamMarker);
             markeri+=1;
         }
+        var lineChart=new Chart(ctx, {
+                                        type: 'line',
+                                        data: data,
+                                        options: options
+                                    });
     });
 }
 
