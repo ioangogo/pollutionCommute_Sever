@@ -38,7 +38,8 @@ function setPos(pos){
 var ctx = document.getElementById('DataChart');
 const graphOptions = {scales: {xAxes: [{type: 'time',  time: {unit: 'day', displayFormats: {'day': 'HH:MM DD/MM/YYYY'}}}]}};
 var lineChart=new Chart(ctx, {type: 'scatter',
-    data: {datasets:[{label: "Sensors In View", data:[]}]}, options: graphOptions
+    data: {datasets:[{label: "Sensors In View", data:[]}]},
+    options: graphOptions
 });
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -78,7 +79,7 @@ function updateSensors(ev){
         }
         var ctx = document.getElementById('DataChart');
         lineChart=new Chart(ctx, {type: 'scatter',
-        data: {labels:["pm2.5 pollution"], datasets:[{label: "Sensors In View", data: Newdata}], options: graphOptions},
+        data: {labels:["pm2.5 pollution"], datasets:[{label: "Sensors In View", data: Newdata}]},options: graphOptions
         });
     });
 }
