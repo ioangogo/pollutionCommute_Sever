@@ -31,6 +31,26 @@ function setPos(pos){
     map.setView(position, 13);
 }
 
+var lineChart=new Chart(ctx, {
+                                        type: 'line',
+                                        data: []
+                                    });
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
@@ -66,10 +86,8 @@ function updateSensors(ev){
             map.addLayer(LamMarker);
             markeri+=1;
         }
-        var lineChart=new Chart(ctx, {
-                                        type: 'line',
-                                        data: data
-                                    });
+        removeData(lineChart);
+        addData(longitude, "Pollution in map", data);
     });
 }
 
