@@ -17,7 +17,7 @@ crossorigin=""/>
         <section class="wrapper style1">
             <div class="inner">
                 <div id="map" style="width: 100%; height: 400px;"></div><br>
-                <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+                <div class="chart-container" style="height:400px; width:100%">
                     <canvas id="DataChart"></canvas>
                 </div>
                 
@@ -65,6 +65,7 @@ map.on('moveend', updateSensors);
 
 function updateSensors(ev){
     Markers.forEach(mark => {map.removeLayer(mark);});
+    lineChart.destroy();
     Markers = new Array;
     var bounds = map.getBounds();
     var markeri=0;
@@ -89,8 +90,10 @@ function updateSensors(ev){
             map.addLayer(LamMarker);
             markeri+=1;
         }
-        removeData(lineChart);
-        addData(lineChart, "Pollution in map", data);
+        var ctx = document.getElementById('DataChart');
+        var lineChart=new Chart(ctx, {type: 'line',
+        data: {labels:["pm2.5 pollution"], datasets:[{label: "Sensors In View", data: data}]},
+        });
     });
 }
 
