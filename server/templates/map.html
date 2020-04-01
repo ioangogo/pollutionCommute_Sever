@@ -32,7 +32,10 @@ function setPos(pos){
 }
 
 var ctx = document.getElementById('DataChart');
-var lineChart=new Chart(ctx, {type: 'line',data: [] });
+var lineChart=new Chart(ctx, {type: 'line',
+    data: {labels:["pm2.5 pollution"], data:[]}
+     });
+
 function addData(chart, label, data) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
@@ -71,7 +74,7 @@ function updateSensors(ev){
         body: JSON.stringify(request)
     }).then(response => response.json()).then((myJson) => {
         console.log(myJson)
-        var data = [];
+        var data = new Array;
         for (const record of myJson){
             var LamMarker = new L.marker([record.lat, record.lng]);
             var GraphData = {x: record.datetime, y: record.pm25}
