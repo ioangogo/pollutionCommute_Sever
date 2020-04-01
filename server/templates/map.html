@@ -77,7 +77,7 @@ function updateSensors(ev){
             markeri+=1;
         }
         var ctx = document.getElementById('DataChart');
-        var lineChart=new Chart(ctx, {type: 'scatter',
+        lineChart=new Chart(ctx, {type: 'scatter',
         data: {labels:["pm2.5 pollution"], datasets:[{label: "Sensors In View", data: Newdata}], options: graphOptions},
         });
     });
