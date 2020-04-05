@@ -34,7 +34,7 @@ def index():
     return render_template("index.html")
 
 @bp.route('/setupGuide')
-def index():
+def setup():
     return render_template("guide.html")
 
 @bp.route('/sensors')
