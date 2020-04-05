@@ -33,6 +33,10 @@ def map():
 def index():
     return render_template("index.html")
 
+@bp.route('/setupGuide')
+def index():
+    return render_template("guide.html")
+
 @bp.route('/sensors')
 @login_required
 def sensors():
