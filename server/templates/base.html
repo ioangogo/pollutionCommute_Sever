@@ -26,7 +26,7 @@
 				<ul class="links">
 					<li><a href="/">Home</a></li>
 					<li><a href="{{url_for('views.map')}}">Map</a></li>
-					<li><a href="{{url_for('views.setup')}}">Map</a></li>
+					<li><a href="{{url_for('views.setup')}}">Setup</a></li>
 					{% if not current_user.is_authenticated %}
 					<li><a href="{{url_for('auth.login')}}">Log In</a></li>
 					<li><a href="{{url_for('auth.signup')}}">Signup</a></li>
