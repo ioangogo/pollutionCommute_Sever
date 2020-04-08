@@ -1,8 +1,8 @@
-from flask import request, Blueprint
+from flask import request, Blueprint, logging
 from .models import Sensor, Recording, User
 import datetime
 import dateutil.parser
-from . import db
+from . import db, app
 
 bp = Blueprint('ingest', __name__, url_prefix='/ingest')
 
@@ -19,9 +19,7 @@ def packetCheck(data, deviceEUI, packetTime):
         nonce = data['nonce']
         # I dont entirely have confidence in the ESP32's random number genrator so i only check if the nonce has been used in the past day
         nonceCheck = Recording.query.filter(Recording.date_time.between(packetTime - datetime.timedelta(days=7), packetTime), Recording.sensor == sensor.id, Recording.nonce == nonce)
-        print(nonceCheck.first())
-        print(nonce)
-        print(deviceEUI)
+
         if nonceCheck.first() is None:
             nonceValid = True
         elif nonceCheck.first() == 0:
@@ -30,12 +28,12 @@ def packetCheck(data, deviceEUI, packetTime):
             nonceValid = False
     else:
         nonceValid = True
-    print(nonceValid)
     if sensor is not None and nonceValid:
-        print("Not a repeate")
+        app.logger.info("The packet is unique")
         print(nonceCheck.first())
         return (sensor, True)
     else:
+        app.logger.warning("The packet has been seen in the past week")
         print(nonceCheck.first())
         return (sensor, False)
 
@@ -44,7 +42,6 @@ def packetCheck(data, deviceEUI, packetTime):
 def ttnIn():
     if request.method == 'POST':
         data = request.json
-        print(data)
         deviceEUI = data['hardware_serial']
         date = dateutil.parser.isoparse(data['metadata']['time'])
         sensor, packetValid = packetCheck(data['payload_fields'], deviceEUI, date)
@@ -58,7 +55,6 @@ def ttnIn():
             newRecord = Recording(lat=lat, lng=lng, date_time=date, sensor=sensor.id, pm25=pm25, nonce=nonce)
             db.session.add(newRecord)
             db.session.commit()
-            print(data)
             return data
         else:
             return "Invalid Device"
@@ -71,7 +67,6 @@ def sensorIn():
         return "This Endpoint Is not for Human Use"
     elif request.method == 'POST':
         data = request.json
-        print(data)
         deviceEUI = data['sensor']
         sensor = Sensor.query.filter_by(sensorEUI=deviceEUI).first()
         timestamp = datetime.datetime.utcfromtimestamp(int(data['time']))
@@ -84,9 +79,7 @@ def sensorIn():
             newRecord = Recording(lat=lat, lng=lng, date_time=timestamp, sensor=sensor.id, pm25=pm25, nonce=nonce)
             db.session.add(newRecord)
             db.session.commit()
-            print(data)
             return data
         else:
-            print("Recording already recived")
             return "Recording already recived"
             

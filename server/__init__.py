@@ -6,6 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 db = SQLAlchemy()
+global app
+
 
 def create_app(test_config=None):
     instancePath = os.path.join(str(Path.home()), ".commutePollution/")
@@ -22,8 +24,6 @@ def create_app(test_config=None):
     )
     print(app.config['SQLALCHEMY_DATABASE_URI'])
     
-    
-
     db.init_app(app)
 
     login_manager = LoginManager()
