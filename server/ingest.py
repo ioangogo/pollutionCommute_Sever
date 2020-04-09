@@ -2,7 +2,7 @@ from flask import request, Blueprint, logging
 from .models import Sensor, Recording, User
 import datetime
 import dateutil.parser
-from . import db, app
+from . import db
 
 bp = Blueprint('ingest', __name__, url_prefix='/ingest')
 
@@ -29,12 +29,10 @@ def packetCheck(data, deviceEUI, packetTime):
     else:
         nonceValid = True
     if sensor is not None and nonceValid:
-        app.logger.info("The packet is unique")
-        print(nonceCheck.first())
+        print("The packet is unique")
         return (sensor, True)
     else:
-        app.logger.warning("The packet has been seen in the past week")
-        print(nonceCheck.first())
+        print("The packet has been seen in the past week")
         return (sensor, False)
 
 

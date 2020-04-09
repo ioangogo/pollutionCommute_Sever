@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 db = SQLAlchemy()
-global app
 
 
 def create_app(test_config=None):
