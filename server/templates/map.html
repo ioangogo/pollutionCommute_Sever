@@ -90,7 +90,7 @@ function updateSensors(ev){
         for (const record of myJson){
             var pmMarker = L.AwesomeMarkers.icon({
                                                     icon: 'cloud',
-                                                    markerColor: pmtoColour(record.pm25)});
+                                                    markerColor: 'rgb('+pmtoColour(record.pm25).join()+')'});
             var LamMarker = new L.marker([record.lat, record.lng], {icon:pmMarker});
             var GraphData = {x: new Date(record.datetime), y: record.pm25}
             Newdata.push(GraphData)
