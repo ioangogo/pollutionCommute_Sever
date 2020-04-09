@@ -36,7 +36,7 @@ crossorigin=""/>
 function pmtoColour(pm) {
     var color1 = [255, 0, 0];
     var color2 = [0, 255, 0];
-    var p = (pm/25.0);
+    var p = (parseInt(pm)/25.0);
     var w = p * 2 - 1;
     var w1 = (w/1+1) / 2;
     var w2 = 1 - w1;
