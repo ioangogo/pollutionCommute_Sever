@@ -2,14 +2,14 @@
 {% block title%}Map{% endblock %}
 {% block head_stuff%}
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
-  <link rel="stylesheet" href="static/css/leaflet.awesome-markers.css">
+  <link rel="stylesheet" href="/static/css/leaflet.awesome-markers.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
-   <script src="static/js/leaflet.awesome-markers.js"></script>
+   <script src="/static/js/leaflet.awesome-markers.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 {% endblock %}
@@ -90,7 +90,7 @@ function updateSensors(ev){
         for (const record of myJson){
             var pmMarker = L.AwesomeMarkers.icon({
                                                     icon: 'cloud',
-                                                    markerColor: pmtoColour(pm)});
+                                                    markerColor: pmtoColour(record.pm25)});
             var LamMarker = new L.marker([record.lat, record.lng], {icon:pmMarker});
             var GraphData = {x: new Date(record.datetime), y: record.pm25}
             Newdata.push(GraphData)
