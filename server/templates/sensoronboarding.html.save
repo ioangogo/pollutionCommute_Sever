@@ -14,20 +14,11 @@
                             <div class="flex flex-2">
                                 <div class="col col2">
                                     <p>
-					To the right are the details you will need to input into the device.<br>
-					<ol>
-                                        	<li>You will need to connect to the hotspot with the name: commutePollute and password: commutePollute</li>
-						<li>Once connected you will need to click on the "go to configuration page" link at the bottom of the page</li>
-                                        	<li>There are then some configuration options you will need to complete:</li>
-						<ul>
-							<li>AP Name: This is the name of the node and does not need changing </li>
-                                        		<li>AP Password: This is new password to access the node once its connected to your wifi, this is required</li>
-							<li>WiFi SSID: Your home/office wifi connections name, so that the sensor can connect to your wifi</li>
-                                        		<li>WiFi password: the password of your wifi</li>
-							<li>devEUI and appKey: are the values to the right and the ones that need to be copied into the feild on the configruation page</li>
-						</ul>
-						<li>Once completed click save at the bottom and restart the device by unplugging the power</li>
-					</ol>
+                                        To the left is the details you will need to input into the device.<br>
+					You will need to connect to the hotspot with the name: commutePollute and password: commutePollute<br>
+					There are then some configuration options you will need to complete:<br>
+					AP Password: This is the password that will be needed to change the settings later<br>
+					
                                     </p>
                                     <p>
                                         <b>THE APPLICATION KEY MUST BE KEPT SECRET AND WILL NOT BE AVALIBLE BEYOND THIS PAGE</b>
@@ -49,7 +40,7 @@
                                         </li>
                                         <li>
                                             <div class="6u 12u$(xsmall)">
-                                                <input type="text" name="appkey" id="appkey" value="{{sensorInfo[1]}}" placeholder="password" />
+                                                <input type="password" name="appkey" id="appkey" value="{{sensorInfo[1]}}" placeholder="password" />
                                             </div>
                                             <div class="2u 12u$(xsmall)">
                                                 <button onclick="copytextBox('appkey')">Copy AppKey</button>
