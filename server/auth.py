@@ -43,7 +43,12 @@ def signup():
             new_user = User(username=Username, password=generate_password_hash(password))
             db.session.add(new_user)
             db.session.commit()
-            return redirect(url_for('auth.login'))
+            if not new_user and check_password_hash(new_user.password, password):
+                return redirect(url_for('auth.login'))
+            else:
+                login_user(new_user)
+                return redirect(url_for('views.sensors'))
+                
 
 @auth.route('/logout')
 @login_required
