@@ -49,7 +49,7 @@ def sensors():
 def sensorRecords(sensor_id):
     sensor = Sensor.query.filter_by(sensorEUI=sensor_id).first()
     if current_user.id == sensor.owner:
-        recordings=Recording.query.filter(Recording.date_time.between(datetime.now(), datetime.now() - timedelta(days=7)), Recording.sensor == sensor.id)
+        recordings=Recording.query.filter(Recording.date_time.between( datetime.now() - timedelta(days=7), datetime.now()), Recording.sensor == sensor.id)
         table = sensorRecordTable(recordings)
         return render_template("sensorrecord.html", sensor_table=table, sensor_id=sensor_id)
     else:
