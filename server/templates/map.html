@@ -48,8 +48,7 @@ function pmtoColour(pm) {
     return rgb;
 }
 
-var Sevendays = Date();
-Sevendays.setDate(Sevendays.getDate() - 7);
+var Sevendays = moment().subtract(7,'d').format('YYYY-MM-DD')
 
 var startpost = new Array
 var Markers = new Array;
