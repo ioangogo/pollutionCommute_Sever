@@ -39,12 +39,12 @@ def apiGetSensorInTimeBounds():
     bottomLng = requestData['bottom']['lng']
     before = None
     after = None
-    if "before" in requestData.keys:
+    if "before" in requestData:
         before = dateutil.parser(requestData["before"])
     else:
         before = datetime.datetime.now()
     
-    if "after" in requestData.keys:
+    if "after" in requestData:
         after = dateutil.parser(requestData["after"])
     else:
         after = datetime.datetime.utcfromtimestamp("0")
