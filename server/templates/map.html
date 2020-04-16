@@ -63,12 +63,14 @@ function setPos(pos){
 
 var ctx = document.getElementById('DataChart');
 
-const graphOptions = {scales: {xAxes: [{type: 'time', ticks:{min:Sevendays}}]}};
+const graphOptions = {scales: {xAxes: [{type: 'time', time:{unit:"day"}, ticks:{min:Sevendays}}]}};
 
 var lineChart=new Chart(ctx, {type: 'scatter',
     data: {datasets:[{label: "Sensors In View", data:[]}]},
     options: graphOptions
 });
+
+
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
