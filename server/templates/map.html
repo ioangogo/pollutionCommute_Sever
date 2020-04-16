@@ -63,7 +63,7 @@ function setPos(pos){
 
 var ctx = document.getElementById('DataChart');
 
-const graphOptions = {scales: {xAxes: [{type: 'time', ticks:{suggestedMin:Sevendays}}]}};
+const graphOptions = {scales: {xAxes: [{type: 'time', ticks:{min:Sevendays}}]}};
 
 var lineChart=new Chart(ctx, {type: 'scatter',
     data: {datasets:[{label: "Sensors In View", data:[]}]},
