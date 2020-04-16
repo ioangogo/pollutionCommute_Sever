@@ -48,6 +48,8 @@ function pmtoColour(pm) {
     return rgb;
 }
 
+var Sevendays = Date();
+Sevendays.setDate(Sevendays.getDate() - 7));
 
 var startpost = new Array
 var Markers = new Array;
@@ -79,8 +81,8 @@ function updateSensors(ev){
     Markers = new Array;
     var bounds = map.getBounds();
     var markeri=0;
-    var request = {"bottom": { "lat": bounds._northEast.lat, "lng": bounds._northEast.lng }, "top": { "lat": bounds._southWest.lat, "lng": bounds._southWest.lng } }
-    fetch('/api/GetSensorInBounds', {
+    var request = {"after": Sevendays.toString(), "bottom": { "lat": bounds._northEast.lat, "lng": bounds._northEast.lng }, "top": { "lat": bounds._southWest.lat, "lng": bounds._southWest.lng } }
+    fetch('/api/GetSensorInTimeBounds', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
