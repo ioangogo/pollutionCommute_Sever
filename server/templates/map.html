@@ -60,7 +60,7 @@ function setPos(pos){
 }
 
 var ctx = document.getElementById('DataChart');
-const graphOptions = {scales: {xAxes: [{type: 'time' ,distribution: 'series',  time: {unit: 'day', displayFormats: {'day': 'HH:MM DD/MM/YYYY'}}}]}};
+const graphOptions = {scales: {xAxes: [{type: 'time' ,distribution: 'series',  time: {unitStepSize: 1, unit: 'day', displayFormats: {'day': 'HH:MM DD/MM/YYYY'}}}]}};
 var lineChart=new Chart(ctx, {type: 'scatter',
     data: {datasets:[{label: "Sensors In View", data:[]}]},
     options: graphOptions
