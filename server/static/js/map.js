@@ -101,7 +101,6 @@ function updateSensors(ev) {
 
             Markers.push(LamMarker);
             map.addLayer(LamMarker);
-            markeri += 1;
         }
 
         // Put the new chart in the page
