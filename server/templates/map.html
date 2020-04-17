@@ -71,7 +71,7 @@ function doGeo(){
         options);
     
 }
-map.on('load', doGeo);
+map.whenReady(doGeo);
 map.setView([0,0], 7);
 
 
