@@ -55,10 +55,26 @@ var today = moment()
 var startpost = new Array
 var Markers = new Array;
 console.log(startpost)
+
 var map = L.map('map',{worldCopyJump:true}).setView([0,0], 7);
-function setPos(pos){
-    map.panTo(new L.LatLng(pos.coords.latitude, pos.coords.longitude));
+function setPos(){
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    navigator.geolocation.getCurrentPosition(function(pos){
+        map.panTo(new L.LatLng(pos.coords.latitude, pos.coords.longitude));
+        },
+        function(err){console.warn('ERROS(${err.code}): ${err.message}')},
+        options);
+    
 }
+
+map.on('load', setPos)
+
+
 
 var ctx = document.getElementById('DataChart');
 
@@ -117,7 +133,6 @@ function updateSensors(ev){
     });
 }
 
-navigator.geolocation.getCurrentPosition(setPos);
 
 </script>
 {% endblock %}
