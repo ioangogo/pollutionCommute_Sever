@@ -57,8 +57,7 @@ var Markers = new Array;
 console.log(startpost)
 var map = L.map('map',{worldCopyJump:true}).setView([0,0], 7);
 function setPos(pos){
-    position = [pos.coords.latitude, pos.coords.longitude];
-    map.setView(position, 13);
+    map.panTo(new L.LatLng(pos.coords.latitude, pos.coords.longitude));
 }
 
 var ctx = document.getElementById('DataChart');
