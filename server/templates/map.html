@@ -67,7 +67,7 @@ function doGeo(){
     navigator.geolocation.getCurrentPosition(function(pos){
         map.panTo(new L.LatLng(pos.coords.latitude, pos.coords.longitude));
         },
-        function(err){console.warn('ERROS(${err.code}): ${err.message}');},
+        function(err){console.warn(`ERROR(${err.code}): ${err.message}`);},
         options);
     
 }
