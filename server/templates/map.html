@@ -56,7 +56,7 @@ var startpost = new Array
 var Markers = new Array;
 console.log(startpost)
 
-var map = L.map('map',{worldCopyJump:true}).setView([0,0], 7);
+var map = L.map('map',{worldCopyJump:true});
 function doGeo(){
     var options = {
         enableHighAccuracy: true,
@@ -71,8 +71,8 @@ function doGeo(){
         options);
     
 }
-
 map.on('load', doGeo);
+map.setView([0,0], 7);
 
 
 
