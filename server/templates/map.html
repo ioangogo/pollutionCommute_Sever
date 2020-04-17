@@ -57,7 +57,7 @@ var Markers = new Array;
 console.log(startpost)
 
 var map = L.map('map',{worldCopyJump:true}).setView([0,0], 7);
-function setPos(){
+function doGeo(){
     var options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -72,7 +72,7 @@ function setPos(){
     
 }
 
-map.on('load', setPos)
+map.on('load', doGeo)
 
 
 
