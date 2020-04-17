@@ -97,7 +97,7 @@ function updateSensors(ev) {
             var GraphData = { x: new Date(record.datetime), y: record.pm25 } // Add the date and PM to the graph
             Newdata.push(GraphData) // 
 
-            LamMarker.bindPopup("<b style='text-align: center;'>" + record.datetime.format('HH:MM DD-MM-YYYY') + "</b><br><b>PM2.5</b>" + record.pm25);
+            LamMarker.bindPopup("<b style='text-align: center;'>" + moment(record.datetime).format('HH:MM DD-MM-YYYY') + "</b><br><b>PM2.5</b>" + record.pm25);
 
             Markers.push(LamMarker);
             map.addLayer(LamMarker);
