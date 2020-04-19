@@ -2,7 +2,6 @@
 Author: Ioan Loosley 2020
 */
 
-
 function pmtoColour(pm) {
     /*
     Function adapted from: https://stackoverflow.com/a/30144587 and is licenced under a CC-BY Licence 
@@ -72,7 +71,10 @@ var lineChart = new Chart(ctx, {
  * the server to show on the map, it also adds data to the chart
  * @param {*} ev event data... this isnt used
  */
+var timerObj = setInterval(updateSensors, 30*1000);
+
 function updateSensors(ev) {
+    clearInterval(timerObj);
     Markers.forEach(mark => { map.removeLayer(mark); });
     lineChart.destroy();
     Markers = new Array;
@@ -110,4 +112,5 @@ function updateSensors(ev) {
             data: { labels: ["pm2.5 pollution"], datasets: [{ label: "Sensors In View", showLine: true, data: Newdata }] }, options: graphOptions
         });
     });
+    timerObj = setInterval(this, 30*1000);
 }
