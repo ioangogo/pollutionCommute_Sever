@@ -112,5 +112,5 @@ function updateSensors(ev) {
             data: { labels: ["pm2.5 pollution"], datasets: [{ label: "Sensors In View", showLine: true, data: Newdata }] }, options: graphOptions
         });
     });
-    timerObj = setInterval(this, 30*1000);
+    timerObj = setInterval(updateSensors, 30*1000);
 }
