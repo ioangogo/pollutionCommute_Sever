@@ -2,6 +2,17 @@
 Author: Ioan Loosley 2020
 */
 
+var lat = 0;
+var lng = 0;
+
+var queryParams = urlParams = new URLSearchParams(window.location.search);
+
+if(queryParams.has("lat") && queryParams.has("lng")){
+    lat = queryParams.get("lat");
+    lng = queryParams.get("lng");
+}
+
+
 function pmtoColour(pm) {
     /*
     Function adapted from: https://stackoverflow.com/a/30144587 and is licenced under a CC-BY Licence 
@@ -47,7 +58,7 @@ function doGeo() {
 
 }
 map.whenReady(doGeo);
-map.setView([0, 0], 7); // Initialise the map
+map.setView([lat, lng], 7); // Initialise the map
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
