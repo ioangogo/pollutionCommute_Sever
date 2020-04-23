@@ -125,3 +125,5 @@ function updateSensors(ev) {
     });
     timerObj = setInterval(updateSensors, 30*1000);
 }
+
+updateSensors();
