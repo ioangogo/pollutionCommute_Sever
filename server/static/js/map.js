@@ -70,7 +70,7 @@ map.on('moveend', updateSensors);
 Chart JS Chart Setup
 */
 var ctx = document.getElementById('DataChart');
-const graphOptions = { scales: { yAxes: [{scaleLabel: {labelString: "PM2.5 µg/m³", display: true}} ],  xAxes: [{ type: 'time', time: { unit: "day" }, ticks: { min: Sevendays, max: today } }] } };
+const graphOptions = { scales: { yAxes: [{scaleLabel: {labelString: "PM2.5 µg/m³", display: true}} ],  xAxes: [{ type: 'time', time: { unit: "hour" }, ticks: { min: Sevendays, max: today } }] } };
 var lineChart = new Chart(ctx, {
     type: 'scatter',
     data: { datasets: [{ label: "Sensors In View", data: [] }] },
