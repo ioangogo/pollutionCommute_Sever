@@ -33,8 +33,8 @@ function pmtoColour(pm) {
 }
 
 // Used in various places to get data and for confiuring the graph
-var Sevendays = moment().subtract(7, 'd').format('YYYY-MM-DD')
-var SevendaysWH = moment().subtract(7, 'd')
+var Sevendays = moment().subtract(2, 'd').format('YYYY-MM-DD')
+var SevendaysWH = moment().subtract(2, 'd')
 var today = moment()
 
 /*
