@@ -99,7 +99,7 @@ function updateSensors(ev) {
         body: JSON.stringify(request)
     }).then(response => response.json()).then((Json) => {
         var Newdata = new Array;
-        options.min = Json[0].datetime;
+        graphOptions.min = Json[0].datetime;
         for (const record of Json) {// Loop through the recived JSON
             // Make a marker to place on the map with the colour based on the PM levels
             var pmMarker = L.AwesomeMarkers.icon({
